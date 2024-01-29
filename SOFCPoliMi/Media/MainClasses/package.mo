@@ -1,4 +1,5 @@
 within SOFCPoliMi.Media;
 package MainClasses
-extends Modelica.Icons.Package;
+  extends Modelica.Icons.Package;
+
 end MainClasses;

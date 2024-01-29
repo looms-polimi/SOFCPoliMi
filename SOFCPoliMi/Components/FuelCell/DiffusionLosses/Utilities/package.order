@@ -1,8 +1,4 @@
-CollisionDiameter
-EnergyOfInteraction
 CollisionIntegral
 DiffusivityEffCoeff
 KnudsenEffDiffCoeff
-EvalCollDiameters
-EvalEnergyOfInteraction
 ConstantsFluidAndSolid

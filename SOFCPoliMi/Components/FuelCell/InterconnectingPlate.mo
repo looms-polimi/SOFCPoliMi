@@ -1,6 +1,5 @@
 within SOFCPoliMi.Components.FuelCell;
 model InterconnectingPlate
-
   // Structural properties
   constant Types.Area A = W*L "Interconnecting plate contact surface with channel";
   constant Types.SpecificHeatCapacity cm = 500 "Specific heat capacity of the interconnecting plate";
@@ -11,32 +10,28 @@ model InterconnectingPlate
   constant Types.Length tauI = 710e-6 "Interconnecting plate thickness";
   constant Types.Volume V = A*tauI "Interconnecting plate volume";
   constant Types.Length W = 5.56e-3 "Interconnecting plate width";
-
   // Initialization
   parameter Types.Temperature T_start = 920 "";
-
   Types.HeatFlowRate Qconv "";
   Types.HeatFlowRate Qrad "";
-  Types.Temperature T(start = T_start) "";
-
+  input Types.HeatFlowRate Qloss;
+  Types.Temperature T(start = T_start) "" annotation (
+    tearingSelect = always);
   // Connectors
   Interfaces.HeatPort convectiveHeatChannel annotation (
-    Placement(visible = true, transformation(origin={-30,0},  extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin={-30,0},  extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Interfaces.HeatPort radiativeHeatChannel annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Interfaces.HeatPort radiativeHeatChannel annotation (
+    Placement(transformation(extent = {{20, -10}, {40, 10}})));
 equation
-
   // Boundary Conditions
   convectiveHeatChannel.T = T;
   convectiveHeatChannel.Q_flow = Qconv;
   radiativeHeatChannel.T = T;
   radiativeHeatChannel.Q_flow = Qrad;
-
   // Energy Balance
-  Cm*der(T) = Qconv + Qrad;
-
+  Cm*der(T) = Qconv + Qrad - Qloss;
 initial equation
   der(T) = 0;
-
-annotation (
+  annotation (
     Icon(graphics={  Rectangle(fillColor = {143, 143, 143}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, 20}, {100, -20}})}));
 end InterconnectingPlate;

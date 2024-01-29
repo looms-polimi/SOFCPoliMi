@@ -1,171 +1,72 @@
 within SOFCPoliMi.Tests;
 model BenchmarkSalogniColonnaIEA
-
-  // This test produces the first two plots of the paper.
-  // It is the comparison between this SOFC model and the one this model was inspired from by Salogni and Colonna
-
   extends Modelica.Icons.Example;
-  replaceable model PENOhmRes =
-      Components.FuelCell.OhmicResistancePEN;
-
-  constant Integer N = 6 "Number of modules in parallel";
-  constant Modelica.Units.SI.FaradayConstant F = Modelica.Constants.F "Faraday constant C/mol";
-
-  parameter Boolean constantDiff = true "";
-
-  parameter Types.ElCurrent iTot = 30;//13.560548;
-  parameter Real inletTemp = 1173;
-  //parameter Real a[4] = {140e3, 137e3, 6.54e11, 2.35e11};
-  parameter Types.MolarEnergy Eanode = 140e3 "";
-  parameter Types.MolarEnergy Ecathode = 1.39e+05 "";
-  parameter Types.SpecificConductivityArea kAnode = 6.54e11 "";
-  parameter Types.SpecificConductivityArea kCathode = 1e+10 "";
-  constant Types.SpecificHeatCapacity cmPEN = 400 "Specific heat capacity of the PEN";
-  constant Types.SpecificHeatCapacity cmPlate = 500 "Specific heat capacity of the interconnecting plate";
-  constant Types.Density rhoPEN = 6600 "PEN density";
-  constant Types.Density rhoPlate = 8000 "Interconnecting plate density";
-  //input Real iNom;
-  // Types.ElPotential vAct[N] = {a[1] + a[2]*arctan(module[i].pen.i/iNom) for i in 1:N};
-  output Types.ElPotential voltage = module[1].pen.vPEN;
-
-  parameter Types.Temperature generalT = 1173.15;
-
-  // Mass flow evaluation from paper
-  parameter Real anodicFlowRate = 2.79e-6 "mass flow rate";
-  parameter Real cathodicFlowRate = 7/4/F/0.21*iTot*28.9586e-3;
-
-  parameter Types.Temperature T_start_Anode[N] = {generalT for i in 1:N};
-  parameter Types.Temperature T_start_Cathode[N] = {generalT for i in 1:N};
-  parameter Types.Temperature T_start_PEN[N] = {generalT for i in 1:N};
-  parameter Types.Temperature T_start_Plate[N] = {generalT for i in 1:N};
-  parameter Types.PerUnit X_start_Anode[N,10] = {{0.36323, 0.63676, 0, 0, 0, 0, 0, 0, 0, 0.00001} for i in 1:N}; //{0.493, 0.171, 0.044, 0.029, 0.263, 0, 0, 0}     {0.36323, 0.63676, 0, 0, 0, 0, 0, 0.00001}
-  parameter Types.PerUnit X_start_Cathode[N,10] = {{0.0, 0.0, 0.0, 0, 0, 0.0, 0.0, 0.205131882988603, 0.794868117011396, 0.0} for i in 1:N};
-  parameter Types.Pressure p_start_Anode = 101325;
-  parameter Types.Pressure p_start_Cathode = 101325;
-  parameter Types.Density rho_start_Anode = 0.17;
-  parameter Types.Density rho_start_Cathode = 0.29;
-  parameter Types.MassFlowRate w_start_Anode = anodicFlowRate;
-  parameter Types.MassFlowRate w_start_Cathode = cathodicFlowRate;
-
-  // Cell dimensions
-  constant Types.Length H = 1e-3 "Channel height";
-  constant Types.Length W = 0.1 "Channel width";
-  constant Types.Length totLength = 0.1   "Channel to length";
-  constant Types.Length tauAE = 50e-6 "Anode electrode thickness";
-  constant Types.Length tauCE = 50e-6 "Cathode electrode thickness";
-  constant Types.Length tauSE = 150e-6 "Solid electrolyte thickness";
-  constant Types.Length tauI = 710e-6 "Interconnecting plate thickness";
-
-  parameter Real porosity = 0.35 "Porosity coefficient for anode and cathode electrodes";
-
-  parameter Types.ElCurrent iPENmax[6] = {1.3792214,1.2731493,1.1541725,1.0373313,0.9256242,0.8208353};
-  parameter Types.ElPotential vLeak0 = 0.035;
-  parameter Boolean leak = false;
-
-  Components.FuelCell.Module module[N](
-    redeclare model ReactionRates =
-        Components.FuelCell.ChemicalReactions.ChannelReactionRatesAir,
-    redeclare model PENOhmRes = PENOhmRes,
-    each leak=leak,
-    each vLeak0=vLeak0,
-    iPENmax=iPENmax,
-    each constantDiff=constantDiff,
-    each porosity=porosity,
-    each cmPEN=cmPEN,
-    each cmPlate=cmPlate,
-    each rhoPEN=rhoPEN,
-    each rhoPlate=rhoPlate,
-    each Eanode=Eanode,
-    each Ecathode=Ecathode,
-    each kAnode=kAnode,
-    each kCathode=kCathode,
-    T_start_Anode = T_start_Anode,
-    T_start_Cathode = T_start_Cathode,
-    T_start_PEN = T_start_PEN,
-    T_start_Plate = T_start_Plate,
-    X_start_Anode = X_start_Anode,
-    X_start_Cathode = X_start_Cathode,
-    each p_start_Anode = p_start_Anode,
-    each p_start_Cathode = p_start_Cathode,
-    each rho_start_Anode = rho_start_Anode,
-    each rho_start_Cathode = rho_start_Cathode,
-    each w_start_Anode = w_start_Anode,
-    each w_start_Cathode = w_start_Cathode,
-    each H=H,
-    each W=W,
-    each tauAE=tauAE,
-    each tauCE=tauCE,
-    each tauSE=tauSE,
-    each tauI=tauI,
-    initialEquation = cat(1, fill(true, N - 1), {false}),
-    L = ones(N)*totLength/N,
-    logVal = linspace(0.68, 3.75, N)); //ones(N)*totLength/N
-
-  Components.Sources.SourceIdealMassFlow anodeSource(T_start = generalT, X_start = X_start_Anode[1], nX = 10, p_start = 101325, rho_start = 0.2);
-  Components.Sources.SourceIdealMassFlow cathodeSource(T_start = generalT, X_start = X_start_Cathode[1], nX = 10, p_start = 101325, rho_start = 0.2);
-  Components.Sources.IdealSinkPressure anodeSink(p = 101325);
-  Components.Sources.IdealSinkPressure cathodeSink(p = 101325);
-  Components.Sources.ConcentrationRamp anodeCompSignal(Xend = {0.59592885,0.035573523,0.12992884,0.054502837,0.18406598,0,0,0,0,0}, Xstart = {0.36323, 0.63676, 0, 0.00001, 0, 0, 0, 0, 0, 0}, nX = 10, tend = 1e7, tstart = 1);
-  //Modelica.Blocks.Sources.Constant anodeCompSignal[8](k = X_start_Anode[1]);
-//   Modelica.Blocks.Sources.Constant anodeFlowSignal(k = anodicFlowRate);
-  Modelica.Blocks.Sources.TimeTable anodeFlowSignal(table = [0, anodicFlowRate; 3e7, anodicFlowRate; 4e7, anodicFlowRate; 4e7+1, anodicFlowRate]);
-  Modelica.Blocks.Sources.RealExpression anodeTempSignal(y = inletTemp);
-  Modelica.Blocks.Sources.Constant cathodeFlowSignal(k = cathodicFlowRate);
-  Modelica.Blocks.Sources.Constant cathodeCompSignal[10](k = X_start_Cathode[1]);
-  Modelica.Blocks.Sources.RealExpression cathodeTempSignal(y = inletTemp);
-  Modelica.Electrical.Analog.Basic.Ground ground;
-  Modelica.Electrical.Analog.Sources.SignalCurrent signalCurrent;
-  Modelica.Blocks.Sources.TimeTable timeTable(table = [0, 0.001; 1e7, 0.001; 2e7, iTot; 3e7, iTot]);
-
-  Types.Power totPower = sum(module[i].pen.elP for i in 1:N);
-  Types.Power enBalance = module[1].anodeChannel.entFlowIn + module[1].cathodeChannel.entFlowIn - (module[N].anodeChannel.entFlowOut + module[N].cathodeChannel.entFlowOut) - totPower;
-  Types.MassFlowRate massBalance = module[1].anodeChannel.wIn + module[1].cathodeChannel.wIn - module[N].anodeChannel.wOut - module[N].cathodeChannel.wOut;
-
-  Real sumI = sum(module[i].pen.i for i in 1:N);
-  Real currentBal = sumI - timeTable.y;
-
-  Real Uf = signalCurrent.i/currentWholeCons;
-  Real currentWholeCons = (2*F*anodeFlowSignal.y*(anodeCompSignal.y[2]/2e-3 + anodeCompSignal.y[4]/28e-3 + 4*anodeCompSignal.y[5]/16e-3));
-
-  Real ratio = anodeFlowSignal.y/anodicFlowRate;
-
+  ParametrizedModels.StackSalogniColonna stack(isOMC=true)
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
+  Components.Sources.SourceIdealMassFlow anodeSource(p_start( displayUnit = "Pa")= 101325, T_start = 750 + 273.15, rho_start = 0.2, X_start = {0.36323032, 0.63676965, 0, 0, 0, 0, 0, 0, 0, 0})  annotation (
+    Placement(transformation(extent={{-80,-26},{-60,-6}})));
+  Components.Sources.SourceIdealMassFlow cathodeSource(p_start(displayUnit = "Pa") = 101325, T_start = 750 + 273.15, X_start = {0.0, 0.0, 0.0, 0.0, 0, 0, 0.0, 0.205131882988603, 0.794868117011396, 0.0}, rho_start = 0.2)  annotation (
+    Placement(transformation(extent = {{-80, 14}, {-60, 34}})));
+  Components.Sources.IdealSinkPressure cathodeSink(p(displayUnit = "Pa") = 101325)  annotation (
+    Placement(transformation(extent = {{40, 20}, {60, 40}})));
+  Components.Sources.IdealSinkPressure anodeSink(p( displayUnit = "Pa")= 101325)  annotation (
+    Placement(transformation(extent = {{40, -40}, {60, -20}})));
+  inner System system annotation (
+    Placement(transformation(origin = {70, -90}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant massFlowCathode(k = 2.79e-6)  annotation (
+    Placement(transformation(origin = {-105, 45}, extent = {{-5, -5}, {5, 5}})));
+  Modelica.Blocks.Sources.Constant compositionCathode[10](k = {0.0, 0.0, 0.0, 0, 0, 0.0, 0.0, 0.205131882988603, 0.794868117011396, 0.0})  annotation (
+    Placement(transformation(origin = {-105, 65}, extent = {{-5, -5}, {5, 5}})));
+  Modelica.Blocks.Sources.Constant temperatureCathode(k = 1173.15)  annotation (
+    Placement(transformation(origin = {-105, 85}, extent = {{-5, -5}, {5, 5}})));
+  Modelica.Blocks.Sources.Constant massFlowAnode(k = 7/4/Modelica.Constants.F/0.21*30*28.9586e-3)  annotation (
+    Placement(transformation(origin = {-133, -35}, extent = {{-5, -5}, {5, 5}})));
+  Modelica.Blocks.Sources.Constant temperatureAnode(k = 1173.15)  annotation (
+    Placement(transformation(origin = {-133, 5}, extent = {{-5, -5}, {5, 5}})));
+Components.Sources.ConcentrationRamp compositionAnode(nX = 10, Xstart = {0.36323, 0.63676, 0, 0, 0, 0, 0, 0, 0, 0.00001}, Xend = {0.36323, 0.63676, 0, 0, 0, 0, 0, 0, 0, 0.00001}, tstart = 1, tend = 1e7)  annotation (
+    Placement(transformation(origin = {-133, -15}, extent = {{-5, -5}, {5, 5}})));
+Modelica.Electrical.Analog.Basic.Ground ground annotation (
+    Placement(transformation(origin = {0, -70}, extent = {{-10, -10}, {10, 10}})));
+Modelica.Electrical.Analog.Sources.SignalCurrent signalCurrent annotation (
+    Placement(transformation(origin = {76, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+Modelica.Blocks.Sources.Constant Qloss(k = 0)  annotation (
+    Placement(transformation(origin = {-15, 35}, extent = {{-5, -5}, {5, 5}})));
+Modelica.Blocks.Sources.Constant elCurrent(k = 30)  annotation (
+    Placement(transformation(origin = {119, 7}, extent = {{-5, -5}, {5, 5}}, rotation = 180)));
+Modelica.Blocks.Sources.TimeTable elCurrentTable(table = [0, 0.001; 10000, 30])  annotation (
+    Placement(transformation(origin = {124, -34}, extent = {{-10, -10}, {10, 10}})));
 equation
-
-//   module.Eanode = a[1];
-//   module.Ecathode=a[2];
-//   module.kAnode=a[3];
-//   module.kCathode=a[4];
-
-// Connections between modules (fluid + electr)
-  for ind in 1:N - 1 loop
-    connect(module[ind].anodeOut, module[ind + 1].anodeIn);
-    connect(module[ind].cathodeOut, module[ind + 1].cathodeIn);
-    connect(module[ind].anodeElPin, module[ind + 1].anodeElPin);
-    connect(module[ind].cathodeElPin, module[ind + 1].cathodeElPin);
-  end for;
-// Boundary connections
-  connect(module[1].anodeIn, anodeSource.flange);
-  connect(module[1].cathodeIn, cathodeSource.flange);
-  connect(module[N].anodeOut, anodeSink.flange);
-  connect(module[N].cathodeOut, cathodeSink.flange);
-// Electrical connections
-  connect(module[1].cathodeElPin, ground.p);
-  connect(module[N].cathodeElPin, signalCurrent.p);
-  connect(module[N].anodeElPin, signalCurrent.n);
-// Signal connections
-  connect(anodeSource.w, anodeFlowSignal.y);
-//   anodeSource.w = anodicFlowRate;
-  connect(anodeSource.Tset, anodeTempSignal.y);
-  connect(anodeSource.X, anodeCompSignal.y);
-  connect(cathodeSource.w, cathodeFlowSignal.y);
-  connect(cathodeSource.Tset, cathodeTempSignal.y);
-  connect(cathodeSource.X, cathodeCompSignal.y);
-  //iTot = signalCurrent.i;
-//   homotopy(iTot,iTot/30) = signalCurrent.i;
-  timeTable.y = signalCurrent.i;
-  annotation (
-    experiment(
-      StopTime=30000000,
-      Interval=100000,
-      __Dymola_Algorithm="Dassl"), __Dymola_experimentSetupOutput);
+  connect(stack.anodePin, ground.p)
+    annotation (Line(points={{0,-18},{0,-60}}, color={0,0,255}));
+  connect(stack.anodePin, signalCurrent.n) annotation (Line(points={{0,-18},
+          {0,-46},{76,-46},{76,-10}}, color={0,0,255}));
+  connect(stack.cathodePin, signalCurrent.p) annotation (Line(points={{0,18},
+          {0,48},{76,48},{76,10}}, color={0,0,255}));
+connect(massFlowCathode.y, cathodeSource.w) annotation (
+    Line(points={{-99.5,45},{-78,45},{-78,28}},       color = {0, 0, 127}));
+connect(temperatureCathode.y, cathodeSource.Tset) annotation (
+    Line(points={{-99.5,85},{-66,85},{-66,28}},       color = {0, 0, 127}));
+connect(temperatureAnode.y, anodeSource.Tset) annotation (
+    Line(points={{-127.5,5},{-66,5},{-66,-12}},          color = {0, 0, 127}));
+connect(massFlowAnode.y, anodeSource.w) annotation (
+    Line(points={{-127.5,-35},{-89.5,-35},{-89.5,-6},{-78,-6},{-78,-12}},          color = {0, 0, 127}));
+connect(compositionAnode.y, anodeSource.X) annotation (
+    Line(points={{-127.5,-15},{-114,-15},{-114,0},{-72,0},{-72,-12}},            color = {0, 0, 127}, thickness = 0.5));
+connect(compositionCathode.y, cathodeSource.X) annotation (
+    Line(points={{-99.5,65},{-72,65},{-72,28}},       color = {0, 0, 127}, thickness = 0.5));
+  connect(Qloss.y, stack.Qloss)
+    annotation (Line(points={{-9.5,35},{10,35},{10,16}}, color={0,0,127}));
+  connect(stack.cathodeOut, cathodeSink.flange)
+    annotation (Line(points={{20,12},{50,12},{50,30}}));
+  connect(stack.anodeOut, anodeSink.flange)
+    annotation (Line(points={{20,-12},{50,-12},{50,-30}}));
+  connect(anodeSource.flange, stack.anodeIn)
+    annotation (Line(points={{-60,-16},{-40,-16},{-40,-12},{-20,-12}}));
+  connect(cathodeSource.flange, stack.cathodeIn)
+    annotation (Line(points={{-60,24},{-50,24},{-50,12},{-20,12}}));
+  connect(
+      signalCurrent.i, elCurrentTable.y) annotation (
+    Line(points={{88,0},{100,0},{100,-12},{156,-12},{156,-34},{135,-34}},              color = {0, 0, 127}));
+annotation (
+    Diagram(coordinateSystem(extent = {{-140, 100}, {120, -100}})));
 end BenchmarkSalogniColonnaIEA;

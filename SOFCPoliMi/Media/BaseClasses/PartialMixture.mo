@@ -1,6 +1,6 @@
 within SOFCPoliMi.Media.BaseClasses;
 partial model PartialMixture "Interface for real mixture gas models"
-extends Modelica.Icons.MaterialProperty;
+  extends Modelica.Icons.MaterialProperty;
   import SOFCPoliMi.Types;
   parameter Boolean computeEnthalpyCondensation = false "Used to decide if it is necessary to calculate enthalpy condensation";
   parameter Boolean computeTransport = true "Used to decide if it is necessary to calculate the transport properties";
@@ -13,17 +13,15 @@ extends Modelica.Icons.MaterialProperty;
   parameter Types.Pressure p_start "Start value of the fluid pressure";
   parameter Types.Temperature T_start "Start value of the fluid temperature";
   parameter Types.MassFraction X_start[nX] = X_default "Start value of the fluid mass composition";
-
   constant Types.MassFraction X_default[nX] = ones(nX)/nX "Default composition";
-
   constant Types.LowerHeatingValue LHV[nX] = ones(nX)*1e6;
-
   //Variables
   connector InputPressure = input Types.Pressure "Pseudo-input to check model balancedness";
   connector InputTemperature = input Types.Temperature "Pseudo-input to check model balancedness";
   connector InputMassFraction = input Types.MassFraction "The fluid properties are defined by a temperature value";
   InputPressure p(start = p_start) "Absolute pressure";
-  InputTemperature T(start = T_start) "Temperature";
+  InputTemperature T(start = T_start) "Temperature" annotation (
+    tearingSelect = always);
   InputMassFraction Xi[nXi](start = Xi_start) "Mass fraction vector";
   Types.MassFraction X[nX](start = X_start) "Mass fraction vector";
   Types.MassFraction C[nC] "Mass fraction vector for tracking components";

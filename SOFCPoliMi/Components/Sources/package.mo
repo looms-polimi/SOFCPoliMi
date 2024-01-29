@@ -1,4 +1,5 @@
 within SOFCPoliMi.Components;
 package Sources
-extends Modelica.Icons.Package;
+  extends Modelica.Icons.Package;
+
 end Sources;

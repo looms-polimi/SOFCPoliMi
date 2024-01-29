@@ -1,0 +1,5 @@
+openModel("SOFCPoliMi/package.mo")
+cd C:\Users\Admin\Documents\Dymola
+Advanced.OnlyUseHomotopyMethod = true;
+//Advanced.Define.DAEsolver = false;
+Advanced.ParallelizeCode = true;
