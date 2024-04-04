@@ -13,17 +13,20 @@ model BenchmarkSalogniColonnaIEA
     Placement(transformation(extent = {{40, -40}, {60, -20}})));
   inner System system annotation (
     Placement(transformation(origin = {70, -90}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant massFlowCathode(k = 2.79e-6)  annotation (
+  Modelica.Blocks.Sources.Constant massFlowCathode(k=7/4/Modelica.Constants.F/
+        0.21*30*28.9586e-3)                                      annotation (
     Placement(transformation(origin = {-105, 45}, extent = {{-5, -5}, {5, 5}})));
   Modelica.Blocks.Sources.Constant compositionCathode[10](k = {0.0, 0.0, 0.0, 0, 0, 0.0, 0.0, 0.205131882988603, 0.794868117011396, 0.0})  annotation (
     Placement(transformation(origin = {-105, 65}, extent = {{-5, -5}, {5, 5}})));
   Modelica.Blocks.Sources.Constant temperatureCathode(k = 1173.15)  annotation (
     Placement(transformation(origin = {-105, 85}, extent = {{-5, -5}, {5, 5}})));
-  Modelica.Blocks.Sources.Constant massFlowAnode(k = 7/4/Modelica.Constants.F/0.21*30*28.9586e-3)  annotation (
+  Modelica.Blocks.Sources.Constant massFlowAnode(k=2.79e-6)                                        annotation (
     Placement(transformation(origin = {-133, -35}, extent = {{-5, -5}, {5, 5}})));
   Modelica.Blocks.Sources.Constant temperatureAnode(k = 1173.15)  annotation (
     Placement(transformation(origin = {-133, 5}, extent = {{-5, -5}, {5, 5}})));
-Components.Sources.ConcentrationRamp compositionAnode(nX = 10, Xstart = {0.36323, 0.63676, 0, 0, 0, 0, 0, 0, 0, 0.00001}, Xend = {0.36323, 0.63676, 0, 0, 0, 0, 0, 0, 0, 0.00001}, tstart = 1, tend = 1e7)  annotation (
+Components.Sources.ConcentrationRamp compositionAnode(nX = 10, Xstart = {0.36323, 0.63676, 0, 0, 0, 0, 0, 0, 0, 0.00001},
+    Xend={0.59592885,0.035573523,0.12992884,0.054502837,0.18406598,0,0,0,0,0},                                                                                                     tstart = 1,
+    tend=2)                                                                                                                                                                                                 annotation (
     Placement(transformation(origin = {-133, -15}, extent = {{-5, -5}, {5, 5}})));
 Modelica.Electrical.Analog.Basic.Ground ground annotation (
     Placement(transformation(origin = {0, -70}, extent = {{-10, -10}, {10, 10}})));
@@ -33,7 +36,7 @@ Modelica.Blocks.Sources.Constant Qloss(k = 0)  annotation (
     Placement(transformation(origin = {-15, 35}, extent = {{-5, -5}, {5, 5}})));
 Modelica.Blocks.Sources.Constant elCurrent(k = 30)  annotation (
     Placement(transformation(origin = {119, 7}, extent = {{-5, -5}, {5, 5}}, rotation = 180)));
-Modelica.Blocks.Sources.TimeTable elCurrentTable(table = [0, 0.001; 10000, 30])  annotation (
+Modelica.Blocks.Sources.TimeTable elCurrentTable(table=[0,0.001; 1e7,30])        annotation (
     Placement(transformation(origin = {124, -34}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(stack.anodePin, ground.p)

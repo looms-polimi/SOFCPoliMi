@@ -28,7 +28,7 @@ model StackSalogniColonna
     leak = false,
     iPENmax = {1.3792214,1.2731493,1.1541725,1.0373313,0.9256242,0.8208353},
     H = 1e-3,
-    W = 0.01,
+    W = 0.1,
     totLength = 0.1,
     tauAE = 50e-6,
     tauCE = 50e-6,
