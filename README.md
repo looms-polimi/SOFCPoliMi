@@ -8,9 +8,16 @@ Modelica models for a 1-D Solid-Oxide fuel cell.
 
 ## How to use
 
-On OpenModelica set parameter `isOMC=true` in the models you want to test.
+On OpenModelica set parameter `isOMC=true` in the models you want to test. 
+This is a Fuel Cell model parameter that can be changed from the GUI. 
 
-Use script *start_up_dymola.mos* to run on Dymola enabling homotopy operator. Set `isOMC=false` in the tests.
+Moreover, to successfully complete a simulation, set the following flags:
+- Translation flag: `--maxSizeNonlinearTearing=40000`
+- Simulation flag: `-ils=100`
+
+These flags allow to perform tearing on larger nonlinear systems of equations and increase the homotopy steps from 3 (default value) to 100.
+
+On Dymola, use the script *start_up_dymola.mos* to enable homotopy operator. Set `isOMC=false` in the models you want to test.
 
 ## Versions
 
