@@ -1,7 +1,7 @@
-within SOFCPoliMi.Tests;
+within SOFCPoliMi.Tests.OpenModelica;
 model BenchmarkNonLinConcLosses
   extends Modelica.Icons.Example;
-  ParametrizedModels.StackNonLinConcLosses stack(isOMC=true)
+  ParametrizedModels.StackNonLinConcLosses stack(isOMC= true)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Components.Sources.SourceIdealMassFlow anodeSource(p_start( displayUnit = "Pa")= 27.5e5, T_start( displayUnit = "K")= 930, rho_start = 0.2, X_start = {0.36323032,0.63676965,0,0,0,0,0,0,0,0})  annotation (
     Placement(transformation(extent={{-80,-26},{-60,-6}})));
@@ -70,6 +70,8 @@ connect(compositionCathode.y, cathodeSource.X) annotation (
   connect(signalCurrent.i, elCurrentTable.y)
     annotation (Line(points={{88,0},{99,0}}, color={0,0,127}));
 annotation (
-    Diagram(coordinateSystem(extent = {{-140, 100}, {120, -100}})), experiment(
-        StopTime=10000, __Dymola_Algorithm="Dassl"));
+    Diagram(coordinateSystem(extent = {{-140, 100}, {120, -100}})),
+  experiment(StopTime = 10000, StartTime = 0, Tolerance = 1e-06, Interval = 20),
+  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --maxSizeNonlinearTearing=40000",
+  __OpenModelica_simulationFlags(ils = "100", lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"));
 end BenchmarkNonLinConcLosses;
