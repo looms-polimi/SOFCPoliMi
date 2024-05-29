@@ -21,13 +21,16 @@ On Dymola, use the script *start_up_dymola.mos* to enable homotopy operator. Set
 
 ## Versions
 
-#### commit 484d9b23fb18907ecf388b1d696e84346a231a99 "Update: improvements and running on OpenModelica"
+- #### commit 5d19eb79c0247428cc90e79c6dfa2ce8887a44e6 "Created two separate packages for OMC and Dymola and added missing flags for OMC simulation"
+  As the title describes, two separate test packages were created to directly simulate on OpenModelica and Dymola and missing flags were added to run OpenModelica simulations
 
-Model improvements, better code documentation and now running on OpenModelica (set parameter isOMC=true in the tests)
+- #### commit 484d9b23fb18907ecf388b1d696e84346a231a99 "Update: improvements and running on OpenModelica"
 
-#### commit f4870a81b98c73a251a2c0c2d48416f2cdeab253 "First commit"
+  Model improvements, better code documentation and now running on OpenModelica (set parameter isOMC=true in the tests)
 
-First commit with tests to replicate reference paper results (only works with Dymola).
+- #### commit f4870a81b98c73a251a2c0c2d48416f2cdeab253 "First commit"
+
+  First commit with tests to replicate reference paper results (only works with Dymola).
 
 ## Bibliography
 
