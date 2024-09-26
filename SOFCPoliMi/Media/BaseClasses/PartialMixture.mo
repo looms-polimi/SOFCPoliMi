@@ -21,7 +21,7 @@ partial model PartialMixture "Interface for real mixture gas models"
   connector InputMassFraction = input Types.MassFraction "The fluid properties are defined by a temperature value";
   InputPressure p(start = p_start) "Absolute pressure";
   InputTemperature T(start = T_start) "Temperature" annotation (
-    tearingSelect = always);
+    __OpenModelica_tearingSelect = TearingSelect.always);
   InputMassFraction Xi[nXi](start = Xi_start) "Mass fraction vector";
   Types.MassFraction X[nX](start = X_start) "Mass fraction vector";
   Types.MassFraction C[nC] "Mass fraction vector for tracking components";

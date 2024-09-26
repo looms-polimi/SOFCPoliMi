@@ -16,7 +16,7 @@ model InterconnectingPlate
   Types.HeatFlowRate Qrad "";
   input Types.HeatFlowRate Qloss;
   Types.Temperature T(start = T_start) "" annotation (
-    tearingSelect = always);
+    __OpenModelica_tearingSelect = TearingSelect.always);
   // Connectors
   Interfaces.HeatPort convectiveHeatChannel annotation (
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

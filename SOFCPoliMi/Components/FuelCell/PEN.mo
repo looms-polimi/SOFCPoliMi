@@ -60,7 +60,7 @@ model PEN
   Types.SpecificMolarGibbsFreeEnergy dg0HOR "H2 oxidation reaction rate";
   Types.ElCurrent i "PEN current";
   Types.CurrentDensity j(start = j_start) "PEN current density relative to channel-PEN contact area" annotation (
-    tearingSelect = always);
+    __OpenModelica_tearingSelect = TearingSelect.always);
   //0.1
   Types.CurrentDensity j0Anode(start = j0Anode_start);
   Types.CurrentDensity j0Cathode(start = j0Cathode_start);
@@ -81,7 +81,7 @@ model PEN
   //input Types.HeatFlowRate QradAnode "";
   //input Types.HeatFlowRate QradCathode "";
   Types.Temperature T(start = T_start) "" annotation (
-    tearingSelect = always);
+    __OpenModelica_tearingSelect = TearingSelect.always);
   // Pressures
   Types.Pressure pAnode "";
   Types.Pressure pCathode "";
