@@ -1,6 +1,5 @@
 within SOFCPoliMi.Components.FuelCell;
 model Module
-  parameter Boolean isOMC = false;
   replaceable model ReactionRates =
       Components.FuelCell.ChemicalReactions.ChannelReactionRatesCO2;
   replaceable model PENOhmRes = Components.FuelCell.OhmicResistancePEN;
@@ -72,13 +71,13 @@ model Module
   parameter Types.Temperature T_start_Plate_Cathode = 920 "";
   parameter Types.PerUnit porosity = 0.35 "Porosity coefficient for anode and cathode electrodes";
   // Models
-  Components.FuelCell.AnodeChannel anodeChannel(redeclare model ReactionRates
-      = ReactionRates,                                                                         redeclare
-      model Fluid =                                                                                                    Fluid, W = W, L = L, H = H, isAnode = true, p_start = p_start_Anode, T_start_in = T_start_Anode_in, T_start_out = T_start_Anode_out, Tpen_start = T_start_PEN, Tplate_start = T_start_Plate_Anode, X_start_in = X_start_Anode_in, X_start_out = X_start_Anode_out, rho_start_in = rho_start_Anode_in, rho_start_out = rho_start_Anode_out, w_start_in = w_start_Anode_in, w_start_out = w_start_Anode_out, wO2_start = wO2_start, initialEquation = initialEquation, alphaNom = alphaNomAnode, deltapNom = deltapNomAnode, Tnom = TnomChannel, wNom = wNomAnode, isOMC = isOMC) annotation (
+  Components.FuelCell.AnodeChannel anodeChannel(redeclare model ReactionRates =
+        ReactionRates,                                                                         redeclare
+      model Fluid =                                                                                                    Fluid, W = W, L = L, H = H, isAnode = true, p_start = p_start_Anode, T_start_in = T_start_Anode_in, T_start_out = T_start_Anode_out, Tpen_start = T_start_PEN, Tplate_start = T_start_Plate_Anode, X_start_in = X_start_Anode_in, X_start_out = X_start_Anode_out, rho_start_in = rho_start_Anode_in, rho_start_out = rho_start_Anode_out, w_start_in = w_start_Anode_in, w_start_out = w_start_Anode_out, wO2_start = wO2_start, initialEquation = initialEquation, alphaNom = alphaNomAnode, deltapNom = deltapNomAnode, Tnom = TnomChannel, wNom = wNomAnode) annotation (
     Placement(visible = true, transformation(origin = {8.88178e-16, -56}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
   Components.FuelCell.PEN pen(redeclare model Resistance = PENOhmRes, leak = leak, nonLinConc = nonLinConc, vLeak0 = vLeak0, iPENmax = iPENmax, constantDiff = constantDiff, rho = rhoPEN, cm = cmPEN, porosity = porosity, Eanode = Eanode, Ecathode = Ecathode, kAnode = kAnode, kCathode = kCathode, W = W, L = L, tauAE = tauAE, tauSE = tauSE, tauCE = tauCE, T_start = T_start_PEN, logVal = logVal, Tnom = TnomPEN, p_start = p_start_Anode, X_start_anode = X_start_Anode_out, X_start_cathode = X_start_Cathode_out, j_start = j_start, j0Anode_start = j0Anode_start, j0Cathode_start = j0Cathode_start) annotation (
     Placement(visible = true, transformation(origin = {7, 1}, extent = {{-31, -31}, {31, 31}}, rotation = 0)));
-  Components.FuelCell.CathodeChannel cathodeChannel(redeclare model Fluid = Fluid, W = W, L = L, H = H, isAnode = false, p_start = p_start_Cathode, T_start_in = T_start_Cathode_in, T_start_out = T_start_Cathode_out, Tpen_start = T_start_PEN, Tplate_start = T_start_Plate_Cathode, X_start_in = X_start_Cathode_in, X_start_out = X_start_Cathode_out, rho_start_in = rho_start_Cathode_in, rho_start_out = rho_start_Cathode_out, w_start_in = w_start_Cathode_in, w_start_out = w_start_Cathode_out, wO2_start = wO2_start, initialEquation = initialEquation, alphaNom = alphaNomCathode, deltapNom = deltapNomCathode, wNom = wNomCathode, isOMC = isOMC) annotation (
+  Components.FuelCell.CathodeChannel cathodeChannel(redeclare model Fluid = Fluid, W = W, L = L, H = H, isAnode = false, p_start = p_start_Cathode, T_start_in = T_start_Cathode_in, T_start_out = T_start_Cathode_out, Tpen_start = T_start_PEN, Tplate_start = T_start_Plate_Cathode, X_start_in = X_start_Cathode_in, X_start_out = X_start_Cathode_out, rho_start_in = rho_start_Cathode_in, rho_start_out = rho_start_Cathode_out, w_start_in = w_start_Cathode_in, w_start_out = w_start_Cathode_out, wO2_start = wO2_start, initialEquation = initialEquation, alphaNom = alphaNomCathode, deltapNom = deltapNomCathode, wNom = wNomCathode) annotation (
     Placement(visible = true, transformation(origin = {1.11022e-15, 56}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
   input Types.HeatFlowRate Qloss;
   Components.FuelCell.InterconnectingPlate anodePlate(W = W, L = L, tauI = tauI, T_start = T_start_Plate_Anode, cm = cmPlate, rho = rhoPlate, Qloss = Qloss/2*0) annotation (

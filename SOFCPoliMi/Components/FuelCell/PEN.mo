@@ -33,10 +33,6 @@ model PEN
   constant Real beta = 0.5 "Transfer coefficient";
   constant Types.DiffusionCoefficient dEffAE = 3.66e-5 "Diffusivity coefficient for the anode electrode";
   constant Types.DiffusionCoefficient dEffCE = 1.37e-5 "Diffusivity coefficient for the cathode electrode";
-  //   constant Types.MolarEnergy Eanode = 140e3 "";
-  //   constant Types.MolarEnergy Ecathode = 137e3 "";
-  //   constant Types.SpecificConductivityArea kAnode = 6.54e11 "";
-  //   constant Types.SpecificConductivityArea kCathode = 2.35e11 "";
   parameter Types.MolarEnergy Eanode = 140e3 "";
   parameter Types.MolarEnergy Ecathode = 137e3 "";
   parameter Types.SpecificConductivityArea kAnode = 6.54e11 "";
@@ -78,8 +74,6 @@ model PEN
   // Thermodynamic quantities
   Types.HeatFlowRate Qanode "";
   Types.HeatFlowRate Qcathode "";
-  //input Types.HeatFlowRate QradAnode "";
-  //input Types.HeatFlowRate QradCathode "";
   Types.Temperature T(start = T_start) "" annotation (
     tearingSelect = always);
   // Pressures
@@ -143,8 +137,6 @@ model PEN
   parameter Types.ElCurrent iPENmax;
   parameter Types.ElPotential vLeak0;
   Types.ElPotential vLeak = if leak then vLeak0*(1 - i/iPENmax) else 0;
-  //  Real check = pH2O / pH2 / sqrt(pO2 / 101325);
-  //  Real check2 = RT / 2 / F * log(pH2O / pH2 / sqrt(pO2 / 101325));
   Real logValCheck = logBound(pH2O/pH2/sqrtBound(pO2/101325));
   Real logValCheck2 = -RT/2/F*logBound(pH2O/pH2/sqrtBound(pO2/101325));
   Real vHomotopyLinCheck = (i - iRef1)/(iRef2 - iRef1)*(vRef2 - vRef1) + vRef1;
@@ -180,7 +172,6 @@ equation
   pH2h = homotopy(pH2, pH2fixed);
   pO2h = homotopy(pO2, pO2fixed);
   vOCP = homotopy(-dg0HOR/2/F - RT/2/F*logBound(pH2Oh/pH2h/sqrtBound(pO2h/101325)), -dg0HOR/2/F - RT/2/F*logVal);
-  //   check2 = pH2O / pH2 / sqrt(pO2 / 101325);
   j = i/S;
   // Partial pressure triple phase boundary
   pH2OTPB = homotopy(max(pH2Oh + RT*tauAE/2/F/dEffH2O*j, 10000), pH2Oh);
@@ -188,27 +179,21 @@ equation
   pO2TPB = homotopy(max(pCathode - (pCathode - pO2h)*exp(RT*tauCE/4/F/dEffO2/pCathode*j), 1000), pO2h);
   // Voltage Losses
   vOhm = j*rOhm.R;
-  //   vConc = RT / 2 / F * (log(pH2OTPB / pH2O * pH2 / pH2TPB * sqrt(pO2 / pO2TPB)));
   vConc = if nonLinConc then homotopy(RT/2/F*(logBound(pH2OTPB/pH2O*pH2/pH2TPB) + 0.5*logBound(pO2/pO2TPB)), j*concLosses.Rb) else j*concLosses.Rb;
-  //   vConc = j * concLosses.Rb;
   if explicit then
     vActAnode = homotopy(2*RT/2/F*logBound(j/2/j0Anode + sqrtBound((j/2/j0Anode)^2 + 1)), RT/2/F*j/j0Anode);
-    //   check = j/j0Anode+sqrt((j/2/j0Anode)^2+1);
     vActCathode = homotopy(2*RT/2/F*logBound(j/2/j0Cathode + sqrtBound((j/2/j0Cathode)^2 + 1)), RT/2/F*j/j0Cathode);
-    //vActAnode = RT/2/F*j/j0Anode;
-    //vActCathode = RT/2/F*j/j0Cathode;
-    //   vActAnode = 0;
-    //   vActCathode = 0;
+
   else
     j = j0Anode*(exp(beta*2*F/RT*vActAnode) - exp(-(1 - beta)*2*F/RT*vActAnode));
     j = j0Cathode*(exp(beta*2*F/RT*vActCathode) - exp(-(1 - beta)*2*F/RT*vActCathode));
-    //   check = 0;
+
   end if;
   j0Anode = RT/2/F*kAnode*exp(-Eanode/RT);
   j0Cathode = RT/2/F*kCathode*exp(-Ecathode/RT);
-  //vPEN = homotopy(vOCP - vOhm - vConc - vActAnode - vActCathode, vOCP-vOhm);
+
   vPEN = homotopy(vOCP - vOhm - vConc - vActAnode - vActCathode - vLeak, (i - iRef1)/(iRef2 - iRef1)*(vRef2 - vRef1) + vRef1);
-  // vOCP - vOhm - vConc - vActAnode - vActCathode;// , 1.1 - 0.95*i)
+
   Cm*der(T) = -elP + Qanode + Qcathode + radAnode.Q_flow + radCathode.Q_flow;
   elP = vPEN*i;
 initial equation

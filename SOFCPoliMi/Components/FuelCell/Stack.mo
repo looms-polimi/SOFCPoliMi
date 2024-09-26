@@ -1,6 +1,5 @@
 within SOFCPoliMi.Components.FuelCell;
 model Stack
-  parameter Boolean isOMC = false;
   // Integers
   constant Integer N = 10 "Number of volumes of each channel";
   constant Integer Nseries = 1 "Number of modules connected in series to build a stack of SOFCs";
@@ -144,8 +143,7 @@ model Stack
     each wNomAnode=w_start_Anode[1]/NparallelFluid,
     each wNomCathode=w_start_Cathode[1]/NparallelFluid,
     each deltapNomAnode=deltapNomAnode/N,
-    each deltapNomCathode=deltapNomCathode/N,
-    each isOMC=isOMC) annotation (Placement(visible=true, transformation(
+    each deltapNomCathode=deltapNomCathode/N) annotation (Placement(visible=true, transformation(
         origin={2,0},
         extent={{-44,-32},{40,52}},
         rotation=0)));
@@ -247,7 +245,6 @@ model Stack
   Types.MassFlowRate totalWO2 = sum(module[i].anodeChannel.wO2 for i in 1:N)*NparallelFluid;
   SOFCPoliMi.Components.Initializers.HomotopyInitializerX homotopyInitializerCathodeIn(
     redeclare model Medium = Media.MainClasses.SOS_CO2.SOS10ComponentsModelica,
-
     p_start=p_start_homotopy_cathode_in,
     X_start=X_start_homotopy_cathode_in,
     T_start=T_start_homotopy_cathode_in) annotation (Placement(visible=true,
@@ -255,9 +252,9 @@ model Stack
         origin={-120,60},
         extent={{-10,-10},{10,10}},
         rotation=0)));
+
   SOFCPoliMi.Components.Initializers.HomotopyInitializerX homotopyInitializerAnodeIn(
     redeclare model Medium = Media.MainClasses.SOS_CO2.SOS10ComponentsModelica,
-
     p_start=p_start_homotopy_anode_in,
     X_start=X_start_homotopy_anode_in,
     T_start=T_start_homotopy_anode_in) annotation (Placement(visible=true,
@@ -265,6 +262,7 @@ model Stack
         origin={-120,-40},
         extent={{-10,-10},{10,10}},
         rotation=0)));
+
   Modelica.Blocks.Interfaces.RealOutput TinAnode annotation (
     Placement(visible = true, transformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-60, -90}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealOutput TinCathode annotation (

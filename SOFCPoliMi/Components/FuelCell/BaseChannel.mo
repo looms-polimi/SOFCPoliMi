@@ -67,10 +67,9 @@ partial model BaseChannel
   Types.Pressure pX[nX](start = pXout_start) "Partial pressures in the channel";
   Types.Density rhoIn(start = rho_start_in) "Mixture inlet density";
   Types.Density rhoOut(start = rho_start_out) "Mixture outlet density";
-  Types.Temperature Tin(start = T_start_in, nominal = 1e3) "Mixture inlet temperature";
+  Types.Temperature Tin(start = T_start_in, nominal = 1e3) "Mixture inlet temperature" annotation (tearingSelect = always);
   // , nominal=1000
-  Types.Temperature Tout(start = T_start_out, nominal = 1e3) "Mixture outlet temperature" annotation (
-    tearingSelect = always);
+  Types.Temperature Tout(start = T_start_out, nominal = 1e3) "Mixture outlet temperature" annotation (tearingSelect = always);
   // , nominal=1000
   Types.Temperature TwPEN(start = Tpen_start, nominal = 1e3) "Temperature of the PEN (wall)" annotation (
     tearingSelect = always);
@@ -118,7 +117,6 @@ partial model BaseChannel
   Real tau "";
   Types.Power entFlowIn = wIn*hIn;
   Types.Power entFlowOut = wOut*hOut;
-  parameter Boolean isOMC = false;
 equation
   velocity = wOut/rhoOut/A;
   tau = L/velocity;
@@ -164,25 +162,10 @@ equation
   pIn = pOut + deltap;
   // Mass Balance
   M = V*fluidOut.rho;
-  if isOMC then
-    if initial() and initType == InitType.steadyState then
-      dM_dt = 0;
-    else
-      dM_dt = -V*rhoOut^2*(fluidOut.dv_dT*der(Tout) + fluidOut.dv_dp*der(pOut) + fluidOut.dv_dX*der(Xout));
-    end if;
-  else
-    dM_dt = -V*rhoOut^2*(fluidOut.dv_dT*der(Tout) + fluidOut.dv_dp*der(pOut) + fluidOut.dv_dX*der(Xout));
-  end if;
+  dM_dt = -V*rhoOut^2*(fluidOut.dv_dT*der(Tout) + fluidOut.dv_dp*der(pOut) + fluidOut.dv_dX*der(Xout));
+
   // Energy balance
-  if isOMC then
-    if initial() and initType == InitType.steadyState then
-      dU_dt = 0;
-    else
-      dU_dt = M*(fluidOut.du_dT*der(Tout) + fluidOut.du_dX*der(Xout)) + dM_dt*fluidOut.u;
-    end if;
-  else
-    dU_dt = M*(fluidOut.du_dT*der(Tout) + fluidOut.du_dX*der(Xout)) + dM_dt*fluidOut.u;
-  end if;
+  dU_dt = M*(fluidOut.du_dT*der(Tout) + fluidOut.du_dX*der(Xout)) + dM_dt*fluidOut.u;
   assert(sumXout > 0.99, "Sum of mass fraction lower than 0.99", AssertionLevel.warning);
   assert(sumXout < 1.01, "Sum of mass fraction higher than 1.01", AssertionLevel.warning);
 initial equation

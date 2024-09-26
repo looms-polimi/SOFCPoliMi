@@ -1,2 +1,6 @@
-OpenModelica
-Dymola
+BenchmarkCammarata
+BenchmarkSalogniColonnaIEA
+BenchmarkNonLinConcLosses
+BenchmarkLinConcLosses
+BenchmarkNonLinConcLossesHigherPorosity
+BenchmarkLinConcLossesHigherCurrent

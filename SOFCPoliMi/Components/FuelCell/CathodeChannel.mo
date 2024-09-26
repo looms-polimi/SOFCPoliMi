@@ -3,8 +3,6 @@ model CathodeChannel
   extends Components.FuelCell.BaseChannel(isAnode = false, alphaNom = 290, Nu = 1.2);
 equation
   // Overall Mass balance
-  //   M = V * fluidOut.rho;
-  //   dM_dt = -V*rhoOut^2*(fluidOut.dv_dT*der(Tout)+fluidOut.dv_dp*der(pOut)+ fluidOut.dv_dX*der(Xout));
   dM_dt = wIn - wOut - wO2 "Overall mass balance";
   // Components Mass Balance
   M*der(Xout) = wIn*(Xin - Xout) + Xout*wO2 - {0, 0, 0, 0, 0, 0, 0, wO2, 0, 0};

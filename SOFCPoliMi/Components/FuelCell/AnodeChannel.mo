@@ -28,25 +28,9 @@ model AnodeChannel
   Types.AreaSpecificReactionRate rSRC2H6 "Steam reforming reaction rate";
   Types.AreaSpecificReactionRate rSRC3H8 "Steam reforming reaction rate";
   Types.AreaSpecificReactionRate rWGS "Water gas shift reaction rate";
-  //   Real check1 = wO2*hO2;
-  //
-  //   Real checkConsumption[nX];
-  //   Real checkConsH2[nX];
-  //   Real balance[nX];
   Real consSRC1[nX];
   Real consSRC2[nX];
-  //   Real consSRC3[nX];
-  //   Real consWGS[nX];
-  //   Real consHOR[nX];
-  //
-  //   Real contribHOR = hor.dh0r*rHOR*S;
-  //   Real enthalpyDiff =  wIn*hIn - wOut*hOut;
-  //   Real powerSR = 206e3*rSRCH4*S;
-  //   Real powerWGS = -41e3*rWGS*S;
-  //   Real powerHOR = 242e3*rHOR*S;
-  //   Real diff = htPEN.Q - powerHOR;
-  //   Real cpDT = (Tin-Tout)*(fluidIn.cp+fluidOut.cp)/2*(wIn+wOut)/2;
-  //   Real myBal = cpDT + powerHOR - powerSR - powerWGS + htPEN.Q + contribHOR;
+
 equation
   // Reaction Rates assignment
   rSRCH4 = rRates.rSRCH4;
@@ -54,18 +38,10 @@ equation
   rSRC3H8 = rRates.rSRC3H8;
   rWGS = rRates.rWGS;
   // Overall Mass balance
-  //   M = V * fluidOut.rho;
-  //   dM_dt = -V*rhoOut^2*(fluidOut.dv_dT*der(Tout)+fluidOut.dv_dp*der(pOut)+ fluidOut.dv_dX*der(Xout));
   dM_dt = wIn - wOut + wO2 "Overall mass balance";
   // Components Mass Balance
   M*der(Xout) = wIn*(Xin - Xout) + S*(rHOR*massStoichHOR + rSRCH4*massStoichSR + rSRC2H6*massStoichSRC2H6 + rSRC3H8*massStoichSRC3H8 + rWGS*massStoichWGS) - Xout*wO2 + {0, 0, 0, 0, 0, 0, 0, wO2, 0, 0};
-  //   M*der(Xout) + Xout*dM_dt = wIn_i - wOut_i + dM_dt
-  // rSRC2H6*massStoichSRC2H6 + rSRC3H8*massStoichSRC3H8 +
-  //   checkConsumption = S*(rHOR*massStoichHOR + rSRCH4*massStoichSR + rWGS*massStoichWGS);
-  //   checkConsH2 = S*(rHOR*massStoichHOR);
-  //   balance = wIn_i - wOut_i + S*(rHOR*massStoichHOR + rSRCH4*massStoichSR + rSRC2H6*massStoichSRC2H6 + rSRC3H8*massStoichSRC3H8 + rWGS*massStoichWGS) + {0,0,0,0,0,0,0,wO2,0,0};
-  //   consHOR = S*rHOR*massStoichHOR;
-  //   consWGS = S*rWGS*massStoichWGS;
+
   consSRC1 = S*rSRCH4*massStoichSR;
   consSRC2 = S*rSRC2H6*massStoichSRC2H6;
   // Energy Balance
