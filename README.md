@@ -34,4 +34,4 @@ On Dymola, use the script *start_up_dymola.mos* to enable homotopy operator. Set
 
 ## Bibliography
 
-M. L. De Pascali, A. Donazzi, E. Martelli and F. Casella, "A Control-Oriented Modelica 1-D Model of a Planar Solid-Oxide Fuel Cell for Oxy-Combustion Cycles," 2023 IEEE Conference on Control Technology and Applications (CCTA), Bridgetown, Barbados, 2023, pp. 394-399, doi: 10.1109/CCTA54093.2023.10252534.
+M. L. De Pascali, A. Donazzi, E. Martelli and F. Casella, "A Control-Oriented Modelica 1-D Model of a Planar Solid-Oxide Fuel Cell for Oxy-Combustion Cycles," 2023 IEEE Conference on Control Technology and Applications (CCTA), Bridgetown, Barbados, 2023, pp. 394-399, [doi:10.1109/CCTA54093.2023.10252534](http://dx.doi.org/10.1109/CCTA54093.2023.10252534).

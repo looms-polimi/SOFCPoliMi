@@ -38,7 +38,8 @@ partial model IdealMixture
   Types.SpecificEnthalpy h_species[nX] "Enthalpy of each component of the mixture referred to standard conditions";
   Types.MolarMass MMmix(start = MMmix_start) "Molar mass of the mixture";
   Types.SpecificEntropy s_species[nX] "";
-  Types.SpecificVolume v(start = v_start) "Specific volume of rhe mixture";// annotation (tearingSelect = always);
+  Types.SpecificVolume v(start = v_start) "Specific volume of rhe mixture" annotation (
+    __OpenModelica_tearingSelect = TearingSelect.always);
   Types.MoleFraction Y[nX] "Molar fractions of the components of the mixture";
   Types.SpecificEnthalpy hTemperature[nX];
   Types.SpecificEnthalpy hPROVATEMP;

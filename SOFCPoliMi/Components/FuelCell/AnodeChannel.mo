@@ -49,6 +49,4 @@ equation
   wallPEN.Q_flow = htPEN.Q + wO2*hO2 + hor.dh0r*rHOR*S "";
   //
   wallPlate.Q_flow = htPlate.Q;
-  annotation (
-    experiment(StopTime = 20000000, Interval = 1000000, Tolerance = 1e-06, __Dymola_Algorithm = "Dassl"));
 end AnodeChannel;

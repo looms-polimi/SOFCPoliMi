@@ -63,19 +63,21 @@ partial model BaseChannel
   Types.MolarFlowRate nOut_i[nX] = nOut*fluidOut.Y "";
   Types.Pressure pIn(start = p_start, nominal = 101325) "Mixture inlet pressure";
   Types.Pressure pOut(start = p_start, nominal = 101325) "Mixture outlet pressure" annotation (
-    tearingSelect = always);
+    __OpenModelica_tearingSelect = TearingSelect.always);
   Types.Pressure pX[nX](start = pXout_start) "Partial pressures in the channel";
   Types.Density rhoIn(start = rho_start_in) "Mixture inlet density";
   Types.Density rhoOut(start = rho_start_out) "Mixture outlet density";
   Types.Temperature Tin(start = T_start_in, nominal = 1e3) "Mixture inlet temperature" annotation (tearingSelect = always);
   // , nominal=1000
-  Types.Temperature Tout(start = T_start_out, nominal = 1e3) "Mixture outlet temperature" annotation (tearingSelect = always);
+  Types.Temperature Tout(start = T_start_out, nominal = 1e3) "Mixture outlet temperature" annotation (
+    __OpenModelica_tearingSelect = TearingSelect.always);
+
   // , nominal=1000
   Types.Temperature TwPEN(start = Tpen_start, nominal = 1e3) "Temperature of the PEN (wall)" annotation (
-    tearingSelect = always);
+    __OpenModelica_tearingSelect = TearingSelect.always);
   // , nominal=1000
   Types.Temperature TwPlate(start = Tplate_start, nominal = 1e3) "Temperature of the interconnection plate (wall)" annotation (
-    tearingSelect = always);
+    __OpenModelica_tearingSelect = TearingSelect.always);
   // , nominal=1000
   Types.MassFlowRate wIn(start = w_start_in, nominal = 1e-6) "Channel inlet mass flow rate";
   Types.MassFlowRate wIn_i[nX] = wIn*Xin "";
@@ -84,7 +86,7 @@ partial model BaseChannel
   Types.MassFlowRate wO2(start = wO2_start, nominal = 1e-12) "Oxygen flow from cathode channel to anode channel";
   Types.MassFraction Xin[nX](start = X_start_in) "Mixture inlet mass fractions";
   Types.MassFraction Xout[nX](start = X_start_out) "Mixture outlet mass fractions" annotation (
-    tearingSelect = always);
+    __OpenModelica_tearingSelect = TearingSelect.always);
   Real sumXout = sum(Xout) "";
   Types.MoleFraction Yin[nX] = fluidIn.Y "Molar fraction at inlet";
   Types.MoleFraction Yout[nX] = fluidOut.Y "Molar fraction at outlet";
