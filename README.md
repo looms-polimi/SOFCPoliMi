@@ -25,7 +25,6 @@ To run the model in Dymola, it is suggested to run a script such as `start_up_dy
 Some vendor-specific annotations were added to successfully run the models in OpenModelica:
 - `__OpenModelica_tearingSelect` was added to some variable declarations to make sure that the right tearing variables (pressures, temperatures, compositions, and currents) are selected when solving the steady-state initialization problem. Dymola automatically selects them based on structural analysis and proprietary heuristics;
 - `__OpenModelica_commandLineOptions = "--maxSizeNonlinearTearing=40000"` was added to the simulation models in order to make sure that tearing is applied to the steady-state initialization problem, whose size is currently larger than default maximum size for applying tearing in OpenModelica;
-- `__OpenModelica_simulationFlags(ils = "100")` was added to the simulation models to make sure that sufficiently small steps are taken to solve the homotopy transformation during initialization. Such an indication is not necessary if an adaptive homotopy solver is used by the tool.
 
 Other tools may need similar hints to successfully solve the initialization problem. Feel free to contact the developers @casella and @matteodepascali if you run the model with other tools and you want to report success or issues.
 
