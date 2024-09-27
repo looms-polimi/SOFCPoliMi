@@ -27,21 +27,17 @@ partial model PartialMixture "Interface for real mixture gas models"
   Types.MassFraction C[nC] "Mass fraction vector for tracking components";
   Types.SpecificEnergy u "Specific Internal Energy of the fluid";
   Types.SpecificEnthalpy h "Specific Enthalpy of the fluid";
-  Types.SpecificEntropy s "Specific Entropy" annotation (
-    HideResult = not ComputeEntropy);
+  Types.SpecificEntropy s "Specific Entropy";
   Types.DerSpecEnergyByPressure du_dp "Pressure derivative of the Specific Internal Energy";
   Types.DerSpecEnergyByTemperature du_dT "Temperature derivative of the Specific Internal Energy";
   Types.SpecificEnergy du_dX[nX] "Mass fraction derivative of Specific Internal Energy at constant pressure, per each component";
   Types.SpecificHeatCapacity cp "Specific heat capacity of the fluid";
   Types.SpecificHeatCapacity cv "Specific heat capacity of the fluid";
-  Types.DerSpecificVolumeByPressure dv_dp "Pressure derivative of specific volume at constant Temperature" annotation (
-    HideResult = not CompressibilityEffect);
+  Types.DerSpecificVolumeByPressure dv_dp "Pressure derivative of specific volume at constant Temperature";
   Types.DerSpecificVolumeByTemperature dv_dT "Temperature derivative of specific volume at constant pressure";
   Types.DerSpecificVolumeByComposition dv_dX[nX] "Mass fraction derivative of specific volumen, per each component";
-  Types.DynamicViscosity mu "Dynamic viscosity" annotation (
-    HideResult = not ComputeTransport);
-  Types.ThermalConductivity k "Thermal Conductivity" annotation (
-    HideResult = not ComputeTransport);
+  Types.DynamicViscosity mu "Dynamic viscosity";
+  Types.ThermalConductivity k "Thermal Conductivity";
   Types.Density rho "Density of the fluid, needed in the pipe";
   Types.LowerHeatingValue LHVmix;
   annotation (
