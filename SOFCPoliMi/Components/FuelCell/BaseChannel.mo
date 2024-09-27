@@ -67,7 +67,7 @@ partial model BaseChannel
   Types.Pressure pX[nX](start = pXout_start) "Partial pressures in the channel";
   Types.Density rhoIn(start = rho_start_in) "Mixture inlet density";
   Types.Density rhoOut(start = rho_start_out) "Mixture outlet density";
-  Types.Temperature Tin(start = T_start_in, nominal = 1e3) "Mixture inlet temperature" annotation (tearingSelect = always);
+  Types.Temperature Tin(start = T_start_in, nominal = 1e3) "Mixture inlet temperature" annotation (__OpenModelica_tearingSelect = TearingSelect.always);
   // , nominal=1000
   Types.Temperature Tout(start = T_start_out, nominal = 1e3) "Mixture outlet temperature" annotation (
     __OpenModelica_tearingSelect = TearingSelect.always);
