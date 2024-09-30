@@ -2,8 +2,8 @@ within SOFCPoliMi.Components.FuelCell;
 model AnodeChannel
   extends Components.FuelCell.BaseChannel(isAnode = true, alphaNom = 510, Nu = 2.7);
   replaceable model HOR = ChemicalReactions.HOR;
-  replaceable model ReactionRates =
-      Components.FuelCell.ChemicalReactions.ChannelReactionRatesCO2;
+  replaceable model ReactionRates = Components.FuelCell.ChemicalReactions.ChannelReactionRatesCO2
+    constrainedby Components.ChemicalReactions.BaseClasses.ChannelReactionRates;
   // Substances and Reaction Coefficients
   constant Real massStoichHOR[nX] = stoichHOR.*fluidIn.MM "";
   constant Real massStoichSR[nX] = stoichSR.*fluidIn.MM "";

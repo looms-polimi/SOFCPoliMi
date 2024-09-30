@@ -1,7 +1,7 @@
 within SOFCPoliMi.Components.FuelCell;
 model Module
-  replaceable model ReactionRates =
-      Components.FuelCell.ChemicalReactions.ChannelReactionRatesCO2;
+  replaceable model ReactionRates = Components.FuelCell.ChemicalReactions.ChannelReactionRatesCO2
+    constrainedby Components.FuelCell.ChemicalReactions.BaseClasses.ChannelReactionRates;
   replaceable model PENOhmRes = Components.FuelCell.OhmicResistancePEN;
   replaceable model Fluid =
       Media.MainClasses.SOS_CO2.SOS10ComponentsModelica;
