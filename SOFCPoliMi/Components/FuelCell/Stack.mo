@@ -86,9 +86,9 @@ model Stack
   parameter Types.Pressure deltapNomCathode;
   parameter Types.Efficiency etaDCAC = 0.98;
   SOFCPoliMi.Components.FuelCell.Module module[N](
-    redeclare model Fluid = Fluid,
-    redeclare model ReactionRates = ReactionRates,
-    redeclare model PENOhmRes = PENOhmRes,
+    redeclare each model Fluid = Fluid,
+    redeclare each model ReactionRates = ReactionRates,
+    redeclare each model PENOhmRes = PENOhmRes,
     each nonLinConc=nonLinConc,
     each leak=leak,
     each vLeak0=vLeak0,
