@@ -1,5 +1,6 @@
 within SOFCPoliMi.Components.FuelCell.ChemicalReactions;
 model ChannelReactionRatesAir
+  extends BaseClasses.ChannelReactionRates(nX = 10);
   // 1: H2O,
   // 2: H2,
   // 3: CO2,
@@ -11,17 +12,13 @@ model ChannelReactionRatesAir
   constant Types.MolarEnergy EaSR = 82e3 "Steam Reforming activation energy";
   constant Types.PreExponFactor k0SR = 4.274e-2 "Steam Reforming pre-exponential factor";
   constant Types.PreExponFactor k0WGS = 1e-2 "Water Gas Shift pre-exponential factor (high Enough to consider the reaction at equilibrium";
-  constant Integer nX = 10 "Number of species in the mixture";
   constant Types.Pressure pRef = 101325 "Reference pressure";
   constant Types.SpecificHeatCapacityMol R = Modelica.Constants.R "Universal gas constant per unit mol";
-  // Start values
-  parameter Types.Temperature T_start "";
   // Nomnial Values
   parameter Types.Temperature Tnom = 1100 "";
   // Variables
   Types.SpecificMolarGibbsFreeEnergy dg0WGS "Water Gas Shift Gibbs free energy of reaction";
   Types.PerUnit kEqWGS "Water Gas Shift equilibrium constant f(T)";
-  input Types.Pressure pX[nX] "Partial pressure in the volume";
   Types.Pressure pH2O = pX[1] "Partial pressure H2O";
   Types.Pressure pH2 = pX[2] "Partial pressure H2";
   Types.Pressure pCO2 = pX[3] "Partial pressure CO2";
@@ -33,7 +30,6 @@ model ChannelReactionRatesAir
   Types.AreaSpecificReactionRate rSRC2H6 "Steam reforming reaction rate";
   Types.AreaSpecificReactionRate rSRC3H8 "Steam reforming reaction rate";
   Types.AreaSpecificReactionRate rWGS "Water Gas Shift reaction rate";
-  input Types.Temperature T(start = T_start) "Mixture temperature";
   Types.MolarEnergy RT "";
   SOFCPoliMi.Components.FuelCell.ChemicalReactions.WGS wgs(T=T, Tnom=Tnom);
   //   OxyCombustionCyclesLibrary.Components.FuelCell.ChemicalReactions.SRch4 srCH4(T=T,Tnom=Tnom);

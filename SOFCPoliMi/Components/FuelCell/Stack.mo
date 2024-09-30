@@ -6,10 +6,9 @@ model Stack
   constant Integer NparallelFluid = 1 "Number of modules in fluid dynamic parallel";
   constant Integer nX = 10 "Number of species in the fluid model";
   // Replaceable models
-  replaceable model Fluid =
-      Media.MainClasses.SOS_CO2.SOS10ComponentsModelica;
-  replaceable model ReactionRates =
-      Components.FuelCell.ChemicalReactions.ChannelReactionRatesCO2;
+  replaceable model Fluid = Media.MainClasses.SOS_CO2.SOS10ComponentsModelica;
+  replaceable model ReactionRates = Components.FuelCell.ChemicalReactions.ChannelReactionRatesCO2
+    constrainedby Components.FuelCell.ChemicalReactions.BaseClasses.ChannelReactionRates;
   replaceable model PENOhmRes = Components.FuelCell.OhmicResistancePEN(preExpSE = preExp);
   // Booleans for options
   parameter Boolean constantDiffusion = false "True if diffusion coefficient for concnetration losses should be considered constant";
