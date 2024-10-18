@@ -4,3 +4,4 @@ BenchmarkNonLinConcLosses
 BenchmarkLinConcLosses
 BenchmarkNonLinConcLossesHigherPorosity
 BenchmarkLinConcLossesHigherCurrent
+BenchmarkCammarataIndex1

@@ -14,6 +14,7 @@ model Stack
   parameter Boolean constantDiffusion = false "True if diffusion coefficient for concnetration losses should be considered constant";
   parameter Boolean leak = false "True if a linear loss proportional to the current should be included to introduce a fuel leakeage effect";
   parameter Boolean nonLinConc = true "True if concentration losses should be considered as non linear";
+  parameter Boolean initialEquation[N] = fill(true,N) "If True";
   // Cell physical parameters
   constant Types.SpecificHeatCapacity cmPEN = 400 "Specific heat capacity of the PEN";
   constant Types.SpecificHeatCapacity cmPlate = 500 "Specific heat capacity of the interconnecting plate";
@@ -132,10 +133,7 @@ model Stack
     each tauCE=tauCE,
     each tauSE=tauSE,
     each tauI=tauI,
-    initialEquation=cat(
-        1,
-        fill(true, N - 1),
-        {false}),
+    initialEquation=initialEquation,
     L=ones(N)*totLength/N,
     logVal=linspace(0.68, 1.8, N),
     each Qloss=Qloss/N/NparallelFluid*QlossFrac,

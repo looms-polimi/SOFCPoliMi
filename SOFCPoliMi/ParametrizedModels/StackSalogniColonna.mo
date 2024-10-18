@@ -35,5 +35,6 @@ model StackSalogniColonna
     tauSE = 160e-6,
     tauI = 710e-6,
     deltapNomAnode = 100,
-    deltapNomCathode = 100);
+    deltapNomCathode = 100,
+    initialEquation=cat(1,fill(true, N - 1),{false}));
 end StackSalogniColonna;

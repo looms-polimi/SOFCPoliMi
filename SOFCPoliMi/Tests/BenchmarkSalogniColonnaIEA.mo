@@ -35,9 +35,7 @@ Modelica.Electrical.Analog.Sources.SignalCurrent signalCurrent annotation (
 Modelica.Blocks.Sources.Constant Qloss(k = 0)  annotation (
     Placement(transformation(origin = {-15, 35}, extent = {{-5, -5}, {5, 5}})));
 Modelica.Blocks.Sources.Constant elCurrent(k = 30)  annotation (
-    Placement(transformation(origin = {119, 7}, extent = {{-5, -5}, {5, 5}}, rotation = 180)));
-Modelica.Blocks.Sources.TimeTable elCurrentTable(table=[0,0.001; 1e7,30])        annotation (
-    Placement(transformation(origin = {124, -34}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {112, 0}, extent = {{-6, -6}, {6, 6}}, rotation = 180)));
 equation
   connect(stack.anodePin, ground.p)
     annotation (Line(points={{0,-18},{0,-60}}, color={0,0,255}));
@@ -67,9 +65,9 @@ connect(compositionCathode.y, cathodeSource.X) annotation (
     annotation (Line(points={{-60,-16},{-40,-16},{-40,-12},{-20,-12}}));
   connect(cathodeSource.flange, stack.cathodeIn)
     annotation (Line(points={{-60,24},{-50,24},{-50,12},{-20,12}}));
-  connect(
-      signalCurrent.i, elCurrentTable.y) annotation (
-    Line(points={{88,0},{100,0},{100,-12},{156,-12},{156,-34},{135,-34}},              color = {0, 0, 127}));
+  connect(elCurrent.y, signalCurrent.i) annotation(
+    Line(points = {{105, 0}, {88, 0}}, color = {0, 0, 127}));
+
 annotation (
     Diagram(coordinateSystem(extent = {{-140, 100}, {120, -100}})),
   experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.002),

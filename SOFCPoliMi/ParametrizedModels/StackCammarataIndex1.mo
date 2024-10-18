@@ -1,32 +1,30 @@
 within SOFCPoliMi.ParametrizedModels;
-model StackNonLinConcLosses
+model StackCammarataIndex1
   extends Components.FuelCell.Stack(
-    N = 10,
     redeclare model ReactionRates =
         Components.FuelCell.ChemicalReactions.ChannelReactionRatesAir,
-    Eanode = 110e+03,
-    Ecathode = 110e+03,
+    Eanode = 95e+03,
+    Ecathode = 95e+03,
     kAnode = 1e+12,
     kCathode = 1e+12,
-    porosity = 0.25,
-    preExp = 3.34e4,
+    porosity = 0.069,
+    preExp = 7.9e3,
     constantDiffusion = false,
-    T_start = 930,
+    T_start = 750 + 273.15,
     cmPEN = 400,
     cmPlate = 500,
     rhoPEN = 6600,
     rhoPlate = 8000,
-    X_start_Anode = fill({0.36323032,0.63676965,0,0,0,0,0,0,0,0}, N + 1),
-    X_start_Cathode = fill({0.0014, 0, 0.8641, 0, 0,0,0, 0.1345, 0, 0}, N + 1),
+    X_start_Anode = fill({0.36323032, 0.63676965, 0, 0, 0, 0, 0, 0, 0, 0}, N + 1),
+    X_start_Cathode = fill({0.0, 0.0, 0.0, 0.0, 0, 0, 0.0, 0.205131882988603, 0.794868117011396, 0.0}, N + 1),
     p_start_Anode = ones(N)*101325,
     p_start_Cathode = ones(N)*101325,
     rho_start_Anode = ones(N + 1)*0.17,
     rho_start_Cathode = ones(N + 1)*0.29,
-    w_start_Anode = ones(N + 1)*1e-5*1.5,
-    w_start_Cathode = ones(N + 1)*1e-5*1.5*2.33,
+    w_start_Anode = ones(N + 1)*4.4942613434132953e-7,
+    w_start_Cathode = ones(N + 1)*2.116452937599743e-5,
     vLeak0 = 0.035,
-    leak = false,
-    iPENmax = {1.3792214,1.2731493,1.1541725,1.0373313,0.9256242,0.8208353,0.72434956,0.6369583,0.55880994,0.4895481},
+    iPENmax = {1.3792214, 1.2731493, 1.1541725, 1.0373313, 0.9256242, 0.8208353, 0.72434956, 0.6369583, 0.55880994, 0.4895481},
     H = 1e-3,
     W = 0.04,
     totLength = 0.04,
@@ -36,5 +34,5 @@ model StackNonLinConcLosses
     tauI = 3e-3,
     deltapNomAnode = 100,
     deltapNomCathode = 100,
-    initialEquation=cat(1,fill(true, N - 1),{false}));
-end StackNonLinConcLosses;
+    initialEquation=fill(true, N));
+end StackCammarataIndex1;

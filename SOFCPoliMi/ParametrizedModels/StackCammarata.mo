@@ -33,5 +33,6 @@ model StackCammarata
     tauSE = 4e-6,
     tauI = 3e-3,
     deltapNomAnode = 100,
-    deltapNomCathode = 100);
+    deltapNomCathode = 100,
+    initialEquation=cat(1,fill(true, N - 1),{false}));
 end StackCammarata;
