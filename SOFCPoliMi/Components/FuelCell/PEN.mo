@@ -194,7 +194,11 @@ equation
 
   vPEN = homotopy(vOCP - vOhm - vConc - vActAnode - vActCathode - vLeak, (i - iRef1)/(iRef2 - iRef1)*(vRef2 - vRef1) + vRef1);
 
+  if initial() then
+  0 = -elP + Qanode + Qcathode + radAnode.Q_flow + radCathode.Q_flow;
+  else
   Cm*der(T) = -elP + Qanode + Qcathode + radAnode.Q_flow + radCathode.Q_flow;
+  end if;
   elP = vPEN*i;
 initial equation
   der(T) = 0;

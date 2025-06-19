@@ -5,7 +5,11 @@ equation
   // Overall Mass balance
   dM_dt = wIn - wOut - wO2 "Overall mass balance";
   // Components Mass Balance
+  if initial() then
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0} = wIn*(Xin - Xout) + Xout*wO2 - {0, 0, 0, 0, 0, 0, 0, wO2, 0, 0};
+  else
   M*der(Xout) = wIn*(Xin - Xout) + Xout*wO2 - {0, 0, 0, 0, 0, 0, 0, wO2, 0, 0};
+  end if;
   // Energy Balance
   dU_dt = wIn*hIn - wOut*hOut + wallPEN.Q_flow + wallPlate.Q_flow;
   wallPEN.Q_flow = htPEN.Q - wO2*hO2 "";

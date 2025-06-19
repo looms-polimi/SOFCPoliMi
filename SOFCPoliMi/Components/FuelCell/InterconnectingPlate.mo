@@ -29,7 +29,11 @@ equation
   radiativeHeatChannel.T = T;
   radiativeHeatChannel.Q_flow = Qrad;
   // Energy Balance
+  if initial() then
+  0 = Qconv + Qrad - Qloss;
+  else
   Cm*der(T) = Qconv + Qrad - Qloss;
+  end if;
 initial equation
   der(T) = 0;
   annotation (

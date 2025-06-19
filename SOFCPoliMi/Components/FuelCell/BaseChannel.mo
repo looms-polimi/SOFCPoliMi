@@ -164,10 +164,18 @@ equation
   pIn = pOut + deltap;
   // Mass Balance
   M = V*fluidOut.rho;
+  if initial() then 
+  dM_dt = 0;
+  else
   dM_dt = -V*rhoOut^2*(fluidOut.dv_dT*der(Tout) + fluidOut.dv_dp*der(pOut) + fluidOut.dv_dX*der(Xout));
+  end if;
 
   // Energy balance
+  if initial() then
+  dU_dt = 0;
+  else
   dU_dt = M*(fluidOut.du_dT*der(Tout) + fluidOut.du_dX*der(Xout)) + dM_dt*fluidOut.u;
+  end if;
   assert(sumXout > 0.99, "Sum of mass fraction lower than 0.99", AssertionLevel.warning);
   assert(sumXout < 1.01, "Sum of mass fraction higher than 1.01", AssertionLevel.warning);
 initial equation

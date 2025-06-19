@@ -40,7 +40,11 @@ equation
   // Overall Mass balance
   dM_dt = wIn - wOut + wO2 "Overall mass balance";
   // Components Mass Balance
+  if initial() then
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0} = wIn*(Xin - Xout) + S*(rHOR*massStoichHOR + rSRCH4*massStoichSR + rSRC2H6*massStoichSRC2H6 + rSRC3H8*massStoichSRC3H8 + rWGS*massStoichWGS) - Xout*wO2 + {0, 0, 0, 0, 0, 0, 0, wO2, 0, 0};
+  else
   M*der(Xout) = wIn*(Xin - Xout) + S*(rHOR*massStoichHOR + rSRCH4*massStoichSR + rSRC2H6*massStoichSRC2H6 + rSRC3H8*massStoichSRC3H8 + rWGS*massStoichWGS) - Xout*wO2 + {0, 0, 0, 0, 0, 0, 0, wO2, 0, 0};
+  end if;
 
   consSRC1 = S*rSRCH4*massStoichSR;
   consSRC2 = S*rSRC2H6*massStoichSRC2H6;

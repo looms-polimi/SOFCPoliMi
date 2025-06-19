@@ -110,6 +110,8 @@ model Stack
     T_start_PEN=T_start_PEN,
     T_start_Plate_Anode=T_start_Plate_Anode,
     T_start_Plate_Cathode=T_start_Plate_Cathode,
+	each TnomChannel = T_start,
+    each TnomPEN = T_start,
     X_start_Anode_in=X_start_Anode[1:end - 1, :],
     X_start_Anode_out=X_start_Anode[2:end, :],
     X_start_Cathode_in=X_start_Cathode[1:end - 1, :],
