@@ -52,9 +52,9 @@ model Stack
   parameter Types.Temperature T_start_PEN[N] = {T_start for i in 1:N};
   parameter Types.Temperature T_start_Plate_Anode[N] = {T_start for i in 1:N};
   parameter Types.Temperature T_start_Plate_Cathode[N] = {T_start for i in 1:N};
-  parameter Types.PerUnit X_start_Anode[N + 1, nX] = ones(N + 1, nX)/nX;
+  parameter Types.PerUnit X_start_Anode[N + 1, nX] = ones(N + 1, nX)/nX annotation(Evaluate = false);
   //{0.36323032, 0.63676965, 0, 0, 0, 0, 0, 0, 0, 0};
-  parameter Types.PerUnit X_start_Cathode[N + 1, nX] = ones(N + 1, nX)/nX;
+  parameter Types.PerUnit X_start_Cathode[N + 1, nX] = ones(N + 1, nX)/nX annotation(Evaluate = false);
   //{0.0014, 0, 0.8641, 0, 0, 0, 0, 0.1345, 0, 0};
   parameter Types.Pressure p_start_Anode[N] = ones(N)*p_start;
   //27.5e5;
