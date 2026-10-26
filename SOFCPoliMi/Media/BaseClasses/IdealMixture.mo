@@ -1,5 +1,6 @@
 within SOFCPoliMi.Media.BaseClasses;
 partial model IdealMixture
+import SOFCPoliMi.Functions.logBound;
   extends PartialMixture(nX = 8, nC = 0, Xi_start = X_start[1:nXi], nXi = if reducedX then nX - 1 else nX, rho(start = rho_start), computeEnthalpyCondensation = false, computeTransport = false, computeEntropy = false, du_dT(nominal = 1000), du_dX(each nominal = 1e6), dv_dp(nominal = 1e-8), dv_dT(nominal = 1e-4), dv_dX(each nominal = 0.1));
   // Water
   replaceable package MediumH2O = Modelica.Media.Water.StandardWater;
@@ -113,7 +114,7 @@ equation
     h = h_species*X "Mixture enthalpy";
     hPROVATEMP = hTemperature*X;
   end if;
-  s = X*s_species + (R*sum(Y[i]*log(Y[i] + eps) for i in 1:nX))/MMmix;
+  s = X*s_species + (R*sum(Y[i]*logBound(Y[i]) for i in 1:nX))/MMmix;
   u = h - p*v "Specific energy definition";
   LHVmix = X*LHV;
   du_dT = cp - R/MMmix "Partial derivative definition";
