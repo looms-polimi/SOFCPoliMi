@@ -8,7 +8,7 @@ import SOFCPoliMi.Functions.logBound;
   //Options
   parameter Boolean anodicFlow = false "";
   parameter Boolean cathodicFlow = false "";
-  parameter Boolean reducedX = false;
+  constant Boolean reducedX = false;
   parameter Integer posCond = 1 "Position of H2O in the array";
   parameter Integer posOxygen = 3 "Position of O2 in the array";
   // Constants

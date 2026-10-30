@@ -1,6 +1,6 @@
 within SOFCPoliMi.Components.FuelCell;
 model FlowMultiplier
-  parameter Integer nX = 10;
+  constant Integer nX = 10;
   parameter Real multiplier;
   Interfaces.FlangeA inlet(nXi = nX, nC = 0, w(min = 0)) annotation (
     Placement(transformation(extent = {{-120, -20}, {-80, 20}}), iconTransformation(extent = {{-120, -20}, {-80, 20}})));

@@ -5,7 +5,7 @@ model PressureLosses
 
   model LinearPressureLoss
   
-    parameter Integer nX;
+    constant Integer nX;
     
     parameter Types.Pressure dpNom;
     parameter Types.MassFlowRate wNom;

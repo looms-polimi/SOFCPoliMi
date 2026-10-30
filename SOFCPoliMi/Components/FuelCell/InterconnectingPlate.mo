@@ -1,14 +1,14 @@
 within SOFCPoliMi.Components.FuelCell;
 model InterconnectingPlate
   // Structural properties
-  constant Types.Area A = W*L "Interconnecting plate contact surface with channel";
+  parameter Types.Area A = W*L "Interconnecting plate contact surface with channel";
   constant Types.SpecificHeatCapacity cm = 500 "Specific heat capacity of the interconnecting plate";
-  constant Types.HeatCapacity Cm = M*cm "Heat capacity of the interconnecting plate";
-  constant Types.Length L = 5.1e-4 "Interconnecting plate length";
-  constant Types.Mass M = rho*V "Interconnecting plate mass";
+  parameter Types.HeatCapacity Cm = M*cm "Heat capacity of the interconnecting plate";
+  parameter Types.Length L = 5.1e-4 "Interconnecting plate length";
+  parameter Types.Mass M = rho*V "Interconnecting plate mass";
   constant Types.Density rho = 8000 "Interconnecting plate density";
   constant Types.Length tauI = 710e-6 "Interconnecting plate thickness";
-  constant Types.Volume V = A*tauI "Interconnecting plate volume";
+  parameter Types.Volume V = A*tauI "Interconnecting plate volume";
   constant Types.Length W = 5.56e-3 "Interconnecting plate width";
   // Initialization
   parameter Types.Temperature T_start = 920 "";
