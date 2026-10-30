@@ -2,7 +2,7 @@ within SOFCPoliMi.Components.Sources;
 
 model IdealPressureSource
 
-  parameter Integer nX = 10 "Number of species in the mixture";
+  constant Integer nX = 10 "Number of species in the mixture";
   
   parameter Types.Pressure p_start "";
   parameter Types.Temperature T_start "";

@@ -1,7 +1,7 @@
 within SOFCPoliMi.Interfaces;
 connector Flange "Generic flange connector for gas flows"
-  parameter Integer nXi "Number of chemical species";
-  parameter Integer nC "Number of tracking species";
+  constant Integer nXi "Number of chemical species";
+  constant Integer nC "Number of tracking species";
   Types.Pressure p "Pressure";
   flow Types.MassFlowRate w "Mass flowrate";
   stream Types.SpecificEnthalpy h "Specific Enthalpy of the fluid close to the connection point if w < 0";

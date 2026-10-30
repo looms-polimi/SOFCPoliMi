@@ -2,7 +2,7 @@ within SOFCPoliMi.Components.Sources;
 
 model IdealMassFlowRateSink
   
-  parameter Integer nX = 10 "Number of species in the mixture";
+  constant Integer nX = 10 "Number of species in the mixture";
   
   Interfaces.FlangeA flange(nXi = nX, nC = 0, w(min = 0)) annotation(
     Placement(transformation(origin = {-82, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}})));

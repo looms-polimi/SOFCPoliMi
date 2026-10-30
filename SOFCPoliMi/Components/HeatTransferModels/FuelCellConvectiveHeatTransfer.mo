@@ -2,7 +2,7 @@ within SOFCPoliMi.Components.HeatTransferModels;
 model FuelCellConvectiveHeatTransfer
   constant Types.Length Lc = 1 "Characteristic length for heat tranfer";
   constant Types.Area A = 1 "Channel section";
-  constant Types.Area S = 1 "Heat transfer surface";
+  parameter Types.Area S = 1 "Heat transfer surface";
   // Start values
   parameter Types.Temperature T_start "";
   // Nominal Values
