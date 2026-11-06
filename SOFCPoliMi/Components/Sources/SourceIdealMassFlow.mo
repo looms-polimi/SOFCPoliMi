@@ -1,7 +1,7 @@
 within SOFCPoliMi.Components.Sources;
 model SourceIdealMassFlow
   // Parameters
-  constant Integer nX = 10 "Number of species in the mixture";
+  parameter Integer nX = 10 "Number of species in the mixture" annotation(Evaluate = true);
   // Initialization
   parameter Types.Pressure p_start "";
   parameter Types.Temperature T_start "";
