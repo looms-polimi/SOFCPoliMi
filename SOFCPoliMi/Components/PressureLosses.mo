@@ -5,7 +5,7 @@ model PressureLosses
 
   model LinearPressureLoss
   
-    parameter Integer nX;
+    parameter Integer nX annotation(Evaluate = true);
     
     parameter Types.Pressure dpNom;
     parameter Types.MassFlowRate wNom;

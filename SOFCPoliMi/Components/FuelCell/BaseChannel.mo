@@ -17,11 +17,11 @@ partial model BaseChannel
   constant Types.Area A = H*W "Channel cross-section";
   constant Types.Length Di = 2*H*W/(H + W) "Channel hydraulic diameter";
   constant Types.Length H = 8.67e-4 "Channel height";
-  constant Types.Length L = 0.0005054568 "Channel length";
-  constant Types.Area S = W*L "Channel contact surface with electrode";
-  constant Types.Area Sside = L*H "Channel side surface (interconnecting plate)";
-  constant Types.Area Sintercon = S + 2*Sside "Total interconnecting plate heat exchange area";
-  constant Types.Volume V = A*L "Channel Volume";
+  parameter Types.Length L = 0.0005054568 "Channel length";
+  parameter Types.Area S = W*L "Channel contact surface with electrode";
+  parameter Types.Area Sside = L*H "Channel side surface (interconnecting plate)";
+  parameter Types.Area Sintercon = S + 2*Sside "Total interconnecting plate heat exchange area";
+  parameter Types.Volume V = A*L "Channel Volume";
   constant Types.Length W = 5.56e-3 "Channel width";
   constant Types.Length wp = 2*H + 2*W "Channel wet perimeter";
   // Nominal values

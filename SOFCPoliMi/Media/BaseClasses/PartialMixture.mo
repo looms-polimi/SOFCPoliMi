@@ -7,8 +7,8 @@ partial model PartialMixture "Interface for real mixture gas models"
   parameter Boolean computeEntropy = true "Used to decide if it is necessary to calculate the entropy of the fluid";
   final parameter Integer dominantSpecies = integer(Modelica.Math.Vectors.find(max(X_start), X_start));
   constant Integer nX = 5 "Number of elements in the mass fraction array that influence fluid properties";
-  parameter Integer nXi "Number of independent elements in the mass fraction array that influence fluid properties";
-  parameter Integer nC "Number of mass fractions of components that are not used to compute the fluid properties";
+  constant Integer nXi "Number of independent elements in the mass fraction array that influence fluid properties";
+  constant Integer nC "Number of mass fractions of components that are not used to compute the fluid properties";
   parameter Types.MassFraction Xi_start[nXi] "Start value of the indepentend elements of fluid mass composition";
   parameter Types.Pressure p_start "Start value of the fluid pressure";
   parameter Types.Temperature T_start "Start value of the fluid temperature";

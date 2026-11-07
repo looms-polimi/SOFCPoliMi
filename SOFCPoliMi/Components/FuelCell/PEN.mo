@@ -17,17 +17,17 @@ model PEN
   constant Modelica.Units.SI.FaradayConstant F = Modelica.Constants.F "Faraday constant C/mol";
   constant Types.SpecificHeatCapacityMol R = Modelica.Constants.R "Universal gas constant per unit mol";
   // Structural properties
-  constant Types.Area S = W*L "Channel contact surface with electrodes";
+  parameter Types.Area S = W*L "Channel contact surface with electrodes";
   constant Types.SpecificHeatCapacity cm = 400 "Specific heat capacity of the PEN";
-  constant Types.HeatCapacity Cm = M*cm "Heat capacity of the PEN";
-  constant Types.Length L = 5.1e-4 "Channel length";
-  constant Types.Mass M = rho*V "PEN mass";
+  parameter Types.HeatCapacity Cm = M*cm "Heat capacity of the PEN";
+  parameter Types.Length L = 5.1e-4 "Channel length";
+  parameter Types.Mass M = rho*V "PEN mass";
   constant Types.Density rho = 6600 "PEN density";
   constant Types.Area A = tauAE*W "Electrode cross section";
   constant Types.Length tauAE = 50e-6 "Anode electrode thickness";
   constant Types.Length tauCE = 50e-6 "Cathode electrode thickness";
   constant Types.Length tauSE = 150e-6 "Solid electrolyte thickness";
-  constant Types.Volume V = S*(tauAE + tauCE + tauSE) "PEN volume";
+  parameter Types.Volume V = S*(tauAE + tauCE + tauSE) "PEN volume";
   constant Types.Length W = 5.56e-3 "Channel width";
   // Other parameters
   constant Real beta = 0.5 "Transfer coefficient";
@@ -100,7 +100,7 @@ model PEN
     Placement(visible = true, transformation(origin = {0, -58}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Interfaces.FuelCellInterfaces.ElPin cathodePin annotation (
     Placement(visible = true, transformation(origin = {0, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  constant Modelica.Units.SI.DimensionlessRatio logVal = 1 "Homotopy parameter to simplify vOCP";
+  parameter Modelica.Units.SI.DimensionlessRatio logVal = 1 "Homotopy parameter to simplify vOCP";
   // Signals
   Interfaces.FuelCellInterfaces.PressureInputSignal partialPressuresAnode[nX](start = pX_anode_start) annotation (
     Placement(visible = true, transformation(origin = {-100, -70}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-50, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));

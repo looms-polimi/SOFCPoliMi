@@ -27,7 +27,7 @@ model Module
   constant Types.Emissivity epsPlate = 0.1 "";
   // Structural parameters
   constant Types.Length H = 8.67e-4 "Channel height";
-  constant Types.Length L = 0.00005 "Channel length";
+  parameter Types.Length L = 0.00005 "Channel length";
   constant Types.Length W = 5.56e-3 "Channel width";
   constant Types.Length tauAE = 50e-6 "Anode electrode thickness";
   constant Types.Length tauCE = 50e-6 "Cathode electrode thickness";
@@ -65,7 +65,7 @@ model Module
   parameter Types.CurrentDensity j_start = 1.5;
   parameter Types.CurrentDensity j0Anode_start = 15000;
   parameter Types.CurrentDensity j0Cathode_start = 6000;
-  constant Real logVal = 1;
+  parameter Real logVal = 1;
   parameter Types.Temperature T_start_PEN = 920 "";
   parameter Types.Temperature T_start_Plate_Anode = 920 "";
   parameter Types.Temperature T_start_Plate_Cathode = 920 "";

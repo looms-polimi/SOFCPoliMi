@@ -1,7 +1,7 @@
 within SOFCPoliMi.Components.FuelCell;
 model Stack
   // Integers
-  constant Integer N = 10 "Number of volumes of each channel";
+  parameter Integer N = 10 "Number of volumes of each channel";
   constant Integer Nseries = 1 "Number of modules connected in series to build a stack of SOFCs";
   constant Integer NparallelFluid = 1 "Number of modules in fluid dynamic parallel";
   constant Integer nX = 10 "Number of species in the fluid model";
