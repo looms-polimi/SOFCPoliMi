@@ -1,7 +1,7 @@
 within SOFCPoliMi.Components.Sources;
 model ConcentrationRamp
   extends Modelica.Blocks.Interfaces.MO(final nout = nX);
-  constant Integer nX "Number of chemical species";
+  parameter Integer nX "Number of chemical species" annotation(Evaluate = true);
   parameter Modelica.Units.SI.MassFraction Xstart[nX] "Initial concentration";
   parameter Modelica.Units.SI.MassFraction Xend[nX] "Final concentration";
   parameter Modelica.Units.SI.Time tstart "Start time for the ramp";

@@ -1,6 +1,6 @@
 within SOFCPoliMi.Components.Sources;
 model IdealSinkPressure
-  constant Integer nX = 10 "Number of species in the mixture";
+  parameter Integer nX = 10 "Number of species in the mixture" annotation(Evaluate = true);
   Interfaces.FlangeA flange(nXi = nX, nC = 0, w(min = 0)) annotation (
     Placement(visible = true, transformation(origin = {0, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   parameter Types.Pressure p;
