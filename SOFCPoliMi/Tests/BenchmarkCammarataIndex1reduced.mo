@@ -46,6 +46,7 @@ model BenchmarkCammarataIndex1reduced
     Placement(transformation(origin = {41, -13}, extent = {{-7, -7}, {7, 7}})));
   Components.PressureLosses.LinearPressureLoss linearPressureLossCathode(nX = 10, wNom = 2.0418329944277608e-5, dpNom = 9)  annotation(
     Placement(transformation(origin = {39, 11}, extent = {{-7, -7}, {7, 7}})));
+
 equation
   connect(anodeSource.flange, stack.anodeIn) annotation (Line(points={{-60,
           -16},{-44,-16},{-44,-12},{-20,-12}}, color={0,0,0}));

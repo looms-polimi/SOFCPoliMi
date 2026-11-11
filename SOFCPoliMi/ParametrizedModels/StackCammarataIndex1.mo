@@ -24,7 +24,7 @@ model StackCammarataIndex1
     w_start_Anode = ones(N + 1)*4.4942613434132953e-7,
     w_start_Cathode = ones(N + 1)*2.116452937599743e-5,
     vLeak0 = 0.035,
-    iPENmax = {1.3792214, 1.2731493, 1.1541725, 1.0373313, 0.9256242, 0.8208353, 0.72434956, 0.6369583, 0.55880994, 0.4895481},
+    iPENmax = linspace(1.3792214,0.4895481,N),
     H = 1e-3,
     W = 0.04,
     totLength = 0.04,
